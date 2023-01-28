@@ -11,9 +11,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,9 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LearnThisTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    BirthdayGreetingWithImage(
-                        stringResource(R.string.te_amo) ,
-                        stringResource(R.string.love_A))
+                    BannerImage()
                 }
             }
         }
@@ -40,50 +38,68 @@ class MainActivity : ComponentActivity() {
 //}
 
 @Composable
-fun BirthdayGreetingWithImage(message: String, from: String) {
-    val image = painterResource(R.drawable.androidparty)
+fun BannerImage() {
+    val image = painterResource(R.drawable.bg_compose_background)
     Box {
         Image(
             painter = image,
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(),
-            contentScale = ContentScale.Crop
+            modifier = Modifier.fillMaxWidth()
         )
-        BirthdayGreetingWithText(message = message, from = from)
     }
 }
 
 @Composable
-fun BirthdayGreetingWithText(message: String, from: String) {
+fun ArticleText(title: String, part_1: String, part_2: String) {
     Column {
         Text(
-            text = message,
-            fontSize = 36.sp,
+            text = title,
+            fontSize = 24.sp,
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentWidth(Alignment.CenterHorizontally)
-                .padding(top = 100.dp, start = 16.dp)
+                .wrapContentWidth(Alignment.Start)
+                .padding(16.dp)
         )
         Text(
-            text = from,
-            fontSize = 26.sp,
+            text = part_1,
+            textAlign = TextAlign.Justify,
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentWidth(Alignment.CenterHorizontally)
-                .padding(top = 16.dp, end = 16.dp)
+                .wrapContentWidth(Alignment.Start)
+                .padding(start = 16.dp, end = 16.dp)
+
+        )
+        Text(
+            text = part_2,
+            textAlign = TextAlign.Justify,
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentWidth(Alignment.Start)
+                .padding(16.dp)
         )
     }
 }
 
-@Preview(showBackground = false)
 @Composable
-fun BirthdayCardPreview() {
+fun ArticlePage(title: String, part_1: String, part_2: String) {
+    Column {
+        BannerImage()
+        ArticleText(
+            title = title,
+            part_1 = part_1,
+            part_2 = part_2
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TestPreview() {
     LearnThisTheme {
-        BirthdayGreetingWithImage(
-            stringResource(R.string.te_amo),
-            stringResource(R.string.love_A)
+        ArticlePage(
+            stringResource(R.string.article_title),
+            stringResource(R.string.part_1),
+            stringResource(R.string.part_2)
         )
     }
 }
