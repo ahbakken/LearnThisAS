@@ -8,4 +8,12 @@
 </string>
     <string name="task_complete">All tasks completed</string>
     <string name="nice_work">Nice work!</string>
+    <string name="textC">Text composable</string>
+    <string name="textCText">"Displays text and follows Material Design guidelines. "</string>
+    <string name="imageC">"Image composable "</string>
+    <string name="imageCText">"Creates a composable that lays out and draws a given Painter class object. "</string>
+    <string name="rowC">"Row composable "</string>
+    <string name="rowCText">"A layout composable that places its children in a horizontal sequence. "</string>
+    <string name="comulmC">"Column composable "</string>
+    <string name="comlumnCText">"A layout composable that places its children in a vertical sequence. "</string>
 </resources>
