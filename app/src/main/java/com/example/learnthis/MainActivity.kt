@@ -3,24 +3,27 @@ package com.example.learnthis
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.material.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.learnthis.ui.theme.LearnThisTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import java.text.NumberFormat
 
 
 class MainActivity : ComponentActivity() {
@@ -28,57 +31,76 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LearnThisTheme {
-                LemonadeApp()
+                Surface(
+                    //...
+                ) {
+                    TipTimeScreen()
+                }
+
             }
         }
     }
 }
+@Composable
+fun TipTimeScreen() {
+    var amountInput by remember { mutableStateOf("") }
+
+    val amount  = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount)
+
+    Column(
+        modifier = Modifier
+            .padding(32.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+
+        Text(
+            text = stringResource(R.string.calculate_tip),
+            fontSize = 24.sp,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        )
+        Spacer(Modifier.height(16.dp))
+        EditNumberField(value = amountInput,
+            onValueChange = { amountInput = it }
+        )
+        Spacer(Modifier.height(24.dp))
+        Text(
+            text = stringResource(R.string.tip_amount, tip),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+    }
+}
+@Composable
+fun EditNumberField(
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    TextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(stringResource(R.string.cost_of_service)) },
+        modifier = Modifier.fillMaxWidth(),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number )
+    )
+}
+private fun calculateTip(
+    amount: Double,
+    tipPercent: Double = 15.0
+): String {
+    val tip = tipPercent / 100 * amount
+    return NumberFormat.getCurrencyInstance().format(tip)
+}
+
 @Preview(showBackground = true)
 @Composable
-fun LemonadeApp() {
-
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
-        var result by remember { mutableStateOf(1) }
-        val imageResource = when (result) {
-            1 -> R.drawable.lemon_tree
-            in 2..5 -> R.drawable.lemon_squeeze
-            6 -> R.drawable.lemon_drink
-            else -> R.drawable.lemon_restart
-        }
-        val textResource = when (result) {
-            1 -> R.string.LemonTree
-            in 2..5 -> R.string.Lemon
-            6 -> R.string.FullGlass
-            else -> R.string.EmptyGlass
-        }
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(stringResource(textResource))
-            Spacer(modifier = Modifier.height(16.dp))
-            Image(
-                painter = painterResource(id = imageResource),
-                contentDescription = result.toString(),
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clip(RoundedCornerShape(7.dp))
-                    .clickable(
-                        onClick = {
-                            if (result < 6) {
-                                result++
-                            } else {
-                                result = 0
-                            }
-                        }
-                    )
-                    .border(1.dp, Color.Black, shape = RoundedCornerShape(7.dp))
-            )
-        }
+fun DefaultPreview() {
+    LearnThisTheme {
+        TipTimeScreen()
     }
 }

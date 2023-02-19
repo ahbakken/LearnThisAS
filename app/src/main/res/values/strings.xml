@@ -1,25 +1,6 @@
 <resources>
     <string name="app_name">LearnThis</string>
-    <string name="te_amo">Dengo, Te amo Mais!</string>
-    <string name="love_A"> - Love Astrid</string>
-    <string name="article_title">Jetpack Compose tutorial!</string>
-    <string name="part_1">Jetpack Compose is a modern toolkit for building native Android UI. Compose simplifies and accelerates UI development on Android with less code, powerful tools, and intuitive Kotlin APIs.</string>
-    <string name="part_2">In this tutorial, you build a simple UI component with declarative functions. You call Compose functions to say what elements you want and the Compose compiler does the rest. Compose is built around Composable functions. These functions let you define your app\'s UI programmatically because they let you describe how it should look and provide data dependencies, rather than focus on the process of the UI\'s construction, such as initializing an element and then attaching it to a parent. To create a Composable function, you add the @Composable annotation to the function name.
-</string>
-    <string name="task_complete">All tasks completed</string>
-    <string name="nice_work">Nice work!</string>
-    <string name="textC">Text composable</string>
-    <string name="textCText">"Displays text and follows Material Design guidelines. "</string>
-    <string name="imageC">"Image composable "</string>
-    <string name="imageCText">"Creates a composable that lays out and draws a given Painter class object. "</string>
-    <string name="rowC">"Row composable "</string>
-    <string name="rowCText">"A layout composable that places its children in a horizontal sequence. "</string>
-    <string name="comulmC">"Column composable "</string>
-    <string name="comlumnCText">"A layout composable that places its children in a vertical sequence. "</string>
-
-    <string name="roll">Roll</string>
-    <string name="LemonTree">Tap the lemon tree to select a lemon</string>
-    <string name="Lemon">Keep tapping the lemon to squeeze it</string>
-    <string name="FullGlass">Tap the lemonade to drink it</string>
-    <string name="EmptyGlass">Tap the empty glass to start again</string>
+    <string name="calculate_tip">Calculate Tip</string>
+    <string name="cost_of_service">Cost of Service</string>
+    <string name="tip_amount">Tip amount: %s</string>
 </resources>
